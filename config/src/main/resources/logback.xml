@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false" scan="false" scanPeriod="30 seconds">
+
+    <property name="APP_NAME" value="activiti6-samples-config"/>
+    <property name="LOG_HOME" value="logs"/>
+    <property name="consolePattern" value="%d [%t] %5p \(%F:%L\) %M\(\) - %m%n"/>
+    <property name="mdc" value="%d [%t] %5p \(%F:%L\) %M\(\) - %m ProcessDefinitionId=%X{mdcProcessDefinitionId} executionId=%X{mdcExecutionId} mdcProcessInstanceId=%X{mdcProcessInstanceId} mdcBusinessKey=%X{mdcBusinessKey} %n"/>
+    <contextName>${APP_NAME}</contextName>
+
+    <!-- 控制台输出 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d [%t] %5p \(%F:%L\) %M\(\) - %m ProcessDefinitionId=%X{mdcProcessDefinitionId} executionId=%X{mdcExecutionId} mdcProcessInstanceId=%X{mdcProcessInstanceId} mdcBusinessKey=%X{mdcBusinessKey} %n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 按照每天生成日志文件 -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!--日志文件输出的文件名-->
+            <fileNamePattern>${LOG_HOME}/${APP_NAME}/job-impl.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!--日志文件最大的大小-->
+            <maxFileSize>50MB</maxFileSize>
+            <maxHistory>3</maxHistory>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n
+            </pattern>
+        </layout>
+    </appender>
+
+<!--    &lt;!&ndash; 按照每天生成日志文件 &ndash;&gt;-->
+<!--    <appender name="DATASOURCE_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+<!--        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">-->
+<!--            &lt;!&ndash;日志文件输出的文件名&ndash;&gt;-->
+<!--            <fileNamePattern>${LOG_HOME}/${APP_NAME}/job-datasource.%d{yyyy-MM-dd}.%i.log</fileNamePattern>-->
+<!--            &lt;!&ndash;日志文件最大的大小&ndash;&gt;-->
+<!--            <maxFileSize>50MB</maxFileSize>-->
+<!--            <maxHistory>3</maxHistory>-->
+<!--        </rollingPolicy>-->
+<!--        <layout class="ch.qos.logback.classic.PatternLayout">-->
+<!--            &lt;!&ndash;格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符&ndash;&gt;-->
+<!--            <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>-->
+<!--        </layout>-->
+<!--    </appender>-->
+
+<!--    &lt;!&ndash; 定时器日志文件 &ndash;&gt;-->
+<!--    <appender name="SCHEDULE_LOGGER" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+<!--        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">-->
+<!--            &lt;!&ndash;日志文件输出的文件名&ndash;&gt;-->
+<!--            <fileNamePattern>${LOG_HOME}/${APP_NAME}/job-schedule.%d{yyyy-MM-dd}.%i.log</fileNamePattern>-->
+<!--            &lt;!&ndash;日志文件最大的大小&ndash;&gt;-->
+<!--            <maxFileSize>50MB</maxFileSize>-->
+<!--            <maxHistory>3</maxHistory>-->
+<!--        </rollingPolicy>-->
+<!--        <layout class="ch.qos.logback.classic.PatternLayout">-->
+<!--            &lt;!&ndash;格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符&ndash;&gt;-->
+<!--            <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>-->
+<!--        </layout>-->
+<!--    </appender>-->
+
+<!--    &lt;!&ndash; 系统异常日志文件 &ndash;&gt;-->
+<!--    <appender name="ERROR_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+<!--        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">-->
+<!--            &lt;!&ndash;日志文件输出的文件名&ndash;&gt;-->
+<!--            <fileNamePattern>${LOG_HOME}/${APP_NAME}/error.%d{yyyy-MM-dd}.%i.log</fileNamePattern>-->
+<!--            &lt;!&ndash;日志文件最大的大小&ndash;&gt;-->
+<!--            <maxFileSize>50MB</maxFileSize>-->
+<!--            <maxHistory>7</maxHistory>-->
+<!--        </rollingPolicy>-->
+<!--        <layout class="ch.qos.logback.classic.PatternLayout">-->
+<!--            &lt;!&ndash;格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符&ndash;&gt;-->
+<!--            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n-->
+<!--            </pattern>-->
+<!--        </layout>-->
+<!--    </appender>-->
+
+<!--    &lt;!&ndash; facade层日志文件 &ndash;&gt;-->
+<!--    <appender name="facadeLogAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+<!--        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">-->
+<!--            &lt;!&ndash;日志文件输出的文件名&ndash;&gt;-->
+<!--            <fileNamePattern>${LOG_HOME}/${APP_NAME}/facadeLog.%d{yyyy-MM-dd}.%i.log</fileNamePattern>-->
+<!--            &lt;!&ndash;日志文件最大的大小&ndash;&gt;-->
+<!--            <maxFileSize>50MB</maxFileSize>-->
+<!--            <maxHistory>3</maxHistory>-->
+<!--        </rollingPolicy>-->
+<!--        <layout class="ch.qos.logback.classic.PatternLayout">-->
+<!--            &lt;!&ndash;格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符&ndash;&gt;-->
+<!--            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n-->
+<!--            </pattern>-->
+<!--        </layout>-->
+<!--    </appender>-->
+
+<!--    &lt;!&ndash; facade层日志文件 &ndash;&gt;-->
+<!--    <appender name="messageLogAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+<!--        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">-->
+<!--            &lt;!&ndash;日志文件输出的文件名&ndash;&gt;-->
+<!--            <fileNamePattern>${LOG_HOME}/${APP_NAME}/messageLog.%d{yyyy-MM-dd}.%i.log</fileNamePattern>-->
+<!--            &lt;!&ndash;日志文件最大的大小&ndash;&gt;-->
+<!--            <maxFileSize>50MB</maxFileSize>-->
+<!--            <maxHistory>3</maxHistory>-->
+<!--        </rollingPolicy>-->
+<!--        <layout class="ch.qos.logback.classic.PatternLayout">-->
+<!--            &lt;!&ndash;格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符&ndash;&gt;-->
+<!--            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n-->
+<!--            </pattern>-->
+<!--        </layout>-->
+<!--    </appender>-->
+
+<!--    <appender name="esLogAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+<!--        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">-->
+<!--            &lt;!&ndash;日志文件输出的文件名&ndash;&gt;-->
+<!--            <fileNamePattern>${LOG_HOME}/${APP_NAME}/esLog.%d{yyyy-MM-dd}.%i.log</fileNamePattern>-->
+<!--            &lt;!&ndash;日志文件最大的大小&ndash;&gt;-->
+<!--            <maxFileSize>50MB</maxFileSize>-->
+<!--            <maxHistory>3</maxHistory>-->
+<!--        </rollingPolicy>-->
+<!--        <layout class="ch.qos.logback.classic.PatternLayout">-->
+<!--            &lt;!&ndash;格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符&ndash;&gt;-->
+<!--            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n-->
+<!--            </pattern>-->
+<!--        </layout>-->
+<!--    </appender>-->
+
+<!--    <appender name="WeightLogAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+<!--        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">-->
+<!--            &lt;!&ndash;日志文件输出的文件名&ndash;&gt;-->
+<!--            <fileNamePattern>${LOG_HOME}/${APP_NAME}/weight-log.%d{yyyy-MM-dd}.%i.log</fileNamePattern>-->
+<!--            &lt;!&ndash;日志文件最大的大小&ndash;&gt;-->
+<!--            <maxFileSize>50MB</maxFileSize>-->
+<!--            <maxHistory>3</maxHistory>-->
+<!--        </rollingPolicy>-->
+<!--        <layout class="ch.qos.logback.classic.PatternLayout">-->
+<!--            &lt;!&ndash;格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符&ndash;&gt;-->
+<!--            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n-->
+<!--            </pattern>-->
+<!--        </layout>-->
+<!--    </appender>-->
+
+<!--    <appender name="jobEventAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+<!--        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">-->
+<!--            &lt;!&ndash;日志文件输出的文件名&ndash;&gt;-->
+<!--            <fileNamePattern>${LOG_HOME}/${APP_NAME}/jobEventLog.%d{yyyy-MM-dd}.%i.log</fileNamePattern>-->
+<!--            &lt;!&ndash;日志文件最大的大小&ndash;&gt;-->
+<!--            <maxFileSize>50MB</maxFileSize>-->
+<!--            <maxHistory>3</maxHistory>-->
+<!--        </rollingPolicy>-->
+<!--        <layout class="ch.qos.logback.classic.PatternLayout">-->
+<!--            &lt;!&ndash;格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符&ndash;&gt;-->
+<!--            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n-->
+<!--            </pattern>-->
+<!--        </layout>-->
+<!--    </appender>-->
+
+<!--    <logger name="facadeLog">-->
+<!--        <appender-ref ref="facadeLogAppender"/>-->
+<!--    </logger>-->
+
+<!--    <logger name="esLog">-->
+<!--        <appender-ref ref="esLogAppender"/>-->
+<!--    </logger>-->
+
+<!--    <logger name="messageLog">-->
+<!--        <appender-ref ref="messageLogAppender"/>-->
+<!--    </logger>-->
+
+<!--    <logger name="ERROR_LOG" level="INFO">-->
+<!--        <appender-ref ref="ERROR_LOG"/>-->
+<!--    </logger>-->
+
+<!--    <logger name="SCHEDULE_LOGGER" level="INFO">-->
+<!--        <appender-ref ref="SCHEDULE_LOGGER"/>-->
+<!--    </logger>-->
+
+<!--    <logger name="org.apache.ibatis" level="INFO">-->
+<!--        <appender-ref ref="DATASOURCE_FILE"/>-->
+<!--    </logger>-->
+
+<!--    <logger name="com.qtshe.job.component.mq.sender.JobEventSender">-->
+<!--        <appender-ref ref="jobEventAppender"/>-->
+<!--    </logger>-->
+
+<!--    <logger name="com.qtshe.job" level="INFO">-->
+<!--        <appender-ref ref="FILE"/>-->
+<!--    </logger>-->
+
+<!--    <logger name="com.qtshe.job.biz.weight" level="INFO">-->
+<!--        <appender-ref ref="WeightLogAppender"/>-->
+<!--    </logger>-->
+
+    <logger name="java.sql.Connection" level="DEBUG" />
+    <logger name="java.sql.Statement" level="DEBUG" />
+    <logger name="java.sql.PreparedStatement" level="DEBUG" />
+
+    <logger name="com.jerry" level="debug"/>
+<!--    <logger name="org.springframework" level="debug"/>-->
+
+    <!-- 日志数据级别 -->
+    <root level="info">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
